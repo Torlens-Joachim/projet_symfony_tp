@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '67ac1eeea7e96542e7a0e4ea8e8699aeedc2841b',
+        'reference' => 'fdff2a165d86eea2da3d313aea88856ac4bdabe0',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,9 +13,18 @@
         '__root__' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '67ac1eeea7e96542e7a0e4ea8e8699aeedc2841b',
+            'reference' => 'fdff2a165d86eea2da3d313aea88856ac4bdabe0',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'composer/semver' => array(
+            'pretty_version' => '3.4.3',
+            'version' => '3.4.3.0',
+            'reference' => '4313d26ada5e0c4edfbd1dc481a92ff7bff91f12',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/./semver',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -154,6 +163,18 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'php-http/async-client-implementation' => array(
+            'dev_requirement' => false,
+            'provided' => array(
+                0 => '*',
+            ),
+        ),
+        'php-http/client-implementation' => array(
+            'dev_requirement' => false,
+            'provided' => array(
+                0 => '*',
+            ),
+        ),
         'psr/cache' => array(
             'pretty_version' => '3.0.0',
             'version' => '3.0.0.0',
@@ -214,6 +235,12 @@
                 0 => '1.0',
             ),
         ),
+        'psr/http-client-implementation' => array(
+            'dev_requirement' => false,
+            'provided' => array(
+                0 => '1.0',
+            ),
+        ),
         'psr/log' => array(
             'pretty_version' => '3.0.2',
             'version' => '3.0.2.0',
@@ -234,6 +261,24 @@
             'provided' => array(
                 0 => '1.0|2.0|3.0',
             ),
+        ),
+        'symfony/asset' => array(
+            'pretty_version' => 'v7.1.6',
+            'version' => '7.1.6.0',
+            'reference' => '0dcd51490d7fc9fbf3c8f5aec6df182920fc0426',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/asset',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'symfony/asset-mapper' => array(
+            'pretty_version' => 'v7.1.6',
+            'version' => '7.1.6.0',
+            'reference' => 'f918f7e4cb2f4c1f29cc43f986473ddb2392a445',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/asset-mapper',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'symfony/cache' => array(
             'pretty_version' => 'v7.1.6',
@@ -400,6 +445,30 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'symfony/http-client' => array(
+            'pretty_version' => 'v7.1.6',
+            'version' => '7.1.6.0',
+            'reference' => '274e2f6886b43a36f8bd5dfeb67215f7ebf9e291',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/http-client',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'symfony/http-client-contracts' => array(
+            'pretty_version' => 'v3.5.0',
+            'version' => '3.5.0.0',
+            'reference' => '20414d96f391677bf80078aa55baece78b82647d',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/http-client-contracts',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'symfony/http-client-implementation' => array(
+            'dev_requirement' => false,
+            'provided' => array(
+                0 => '3.0',
+            ),
+        ),
         'symfony/http-foundation' => array(
             'pretty_version' => 'v7.1.6',
             'version' => '7.1.6.0',
@@ -545,7 +614,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/process',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/property-access' => array(
             'pretty_version' => 'v7.1.6',
@@ -730,6 +799,15 @@
             'reference' => '3ced3f29e4f0d6bce2170ff26719f1fe9aacc671',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/yaml',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'symfonycasts/tailwind-bundle' => array(
+            'pretty_version' => 'v0.6.0',
+            'version' => '0.6.0.0',
+            'reference' => '4cde58e23605e136d5c40a9c945c673b488d4fd6',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfonycasts/tailwind-bundle',
             'aliases' => array(),
             'dev_requirement' => false,
         ),

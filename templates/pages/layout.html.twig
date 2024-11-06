@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block 'titlePage'%}{% endblock %}
+    <link rel="stylesheet" href={{asset('styles/app.css')}}>
+    {% block titlePage %}{% endblock %}
 </head>
 <body>
-        {% include "components/navbar.html.twig" %}
+        {% include "composants/navbar.html.twig" %}
     <main>
-    {% block 'contentPage'%}{% endblock %}<
+    {% block contentPage %}{% endblock %}
     </main>
 </body>
 </html>
