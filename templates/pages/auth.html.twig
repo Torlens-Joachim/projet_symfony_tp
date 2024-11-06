@@ -1,0 +1,85 @@
+{% extends "pages/layout.html.twig" %}
+{% set data = app.request.query.all('inscription') %}
+{% set dataLogin = app.request.query.all('connexion') %}
+
+{% block titlePage %}
+    <title>Page d'authentification</title>
+{% endblock %}
+
+{% block contentPage %}
+<div class="flex min-h-screen items-center justify-center bg-gray-100">
+    <div class="w-full max-w-md space-y-8 bg-white p-8 rounded-lg shadow-lg">
+        <h1 class="text-center text-2xl font-bold text-gray-800">Page d'authentification</h1>
+
+        <!-- Formulaire d'inscription -->
+        <div class="space-y-4">
+            <h3 class="text-xl font-semibold text-gray-700">Inscrivez-vous</h3>
+
+            {{ form_start(formulaireInscription) }}
+            <div>
+                {{ form_label(formulaireInscription.email, 'Email', {'label_attr': {'class': 'block text-gray-600'}}) }}
+                {{ form_widget(formulaireInscription.email, {'attr': {'class': 'w-full border border-gray-300 p-2 rounded'}}) }}
+                <div class="text-red-500 text-sm">{{ form_errors(formulaireInscription.email) }}</div>
+            </div>
+
+            <div>
+                {{ form_label(formulaireInscription.pseudo, 'Pseudo', {'label_attr': {'class': 'block text-gray-600'}}) }}
+                {{ form_widget(formulaireInscription.pseudo, {'attr': {'class': 'w-full border border-gray-300 p-2 rounded'}}) }}
+                <div class="text-red-500 text-sm">{{ form_errors(formulaireInscription.pseudo) }}</div>
+            </div>
+
+            <div>
+                {{ form_label(formulaireInscription.password.first, 'Mot de passe', {'label_attr': {'class': 'block text-gray-600'}}) }}
+                {{ form_widget(formulaireInscription.password.first, {'attr': {'class': 'w-full border border-gray-300 p-2 rounded', 'placeholder': 'Entrez votre mot de passe'}}) }}
+                <div class="text-red-500 text-sm">{{ form_errors(formulaireInscription.password.first) }}</div>
+            </div>
+
+            <div>
+                {{ form_label(formulaireInscription.password.second, 'Confirmation de mot de passe', {'label_attr': {'class': 'block text-gray-600'}}) }}
+                {{ form_widget(formulaireInscription.password.second, {'attr': {'class': 'w-full border border-gray-300 p-2 rounded', 'placeholder': 'Confirmez votre mot de passe'}}) }}
+                <div class="text-red-500 text-sm">{{ form_errors(formulaireInscription.password.second) }}</div>
+            </div>
+
+            <div>
+                {{ form_widget(formulaireInscription.submit, {'attr': {'class': 'w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600'}}) }}
+            </div>
+            {{ form_end(formulaireInscription) }}
+
+            {% if data.code is defined %}
+                <p class="{{ data.status == 'error' ? 'text-red-500' : 'text-green-500' }} text-center text-sm mt-2">
+                    {{ data.status == 'error' ? 'Utilisateur déjà inscrit' : 'Inscription réussie ! 🥳' }}
+                </p>
+            {% endif %}
+        </div>
+
+        <div class="text-center text-gray-900">Ou</div>
+
+        <!-- Formulaire de connexion -->
+        <div class="space-y-4">
+            <h3 class="text-xl font-semibold text-gray-700">Connectez-vous</h3>
+
+            {{ form_start(formulaireConnexion) }}
+            <div>
+                {{ form_label(formulaireConnexion.email, 'Email', {'label_attr': {'class': 'block text-gray-600'}}) }}
+                {{ form_widget(formulaireConnexion.email, {full_name:"email",'attr': {'class': 'w-full border border-gray-300 p-2 rounded', 'placeholder': 'Entrez votre email'}}) }}
+                <div class="text-red-500 text-sm">{{ form_errors(formulaireConnexion.email) }}</div>
+            </div>
+
+            <div>
+                {{ form_label(formulaireConnexion.password, 'Mot de passe', {'label_attr': {'class': 'block text-gray-600'}}) }}
+                {{ form_widget(formulaireConnexion.password, {full_name:"password", 'attr': {'class': 'w-full border border-gray-300 p-2 rounded', 'placeholder': 'Entrez votre mot de passe'}}) }}
+                <div class="text-red-500 text-sm">{{ form_errors(formulaireConnexion.password) }}</div>
+            </div>
+
+            <div>
+                {{ form_widget(formulaireConnexion.submit, {'attr': {'class': 'w-full bg-green-500 text-white py-2 rounded hover:bg-green-600'}}) }}
+            </div>
+            {{ form_end(formulaireConnexion) }}
+
+            {% if dataLogin.code is defined %}
+                <p class="text-red-500 text-center text-sm mt-2">Identifiant incorrect !</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
