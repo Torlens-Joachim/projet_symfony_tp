@@ -60,13 +60,16 @@ class AuthentificationController extends AbstractController
     }
 
     #[Route("/profile", name: "app_profile", methods: ["GET"])]
-    public function ProfileController()
+    public function ProfileController(UtilisateurRepository $repo)
     {
         if(!$this->isGranted("IS_AUTHENTICATED_FULLY")) {
             return $this->redirectToRoute("app_auth");
         }
 
-        return $this->render("pages/profile/index.html.twig");
+        $emailUser = $this->getUser()->getUserIdentifier();
+        $userFromDB = $repo->findOneBy(["email"=> $emailUser]);
+
+        return $this->render("pages/profile/index.html.twig", ["user"=>$userFromDB]);
     }
 
     #[Route("/deconnexion", name: "app_deconnexion")]

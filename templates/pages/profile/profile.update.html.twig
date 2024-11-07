@@ -1,0 +1,54 @@
+{% extends "pages/layout.html.twig" %}
+
+{% set dataImg = app.request.query.all("uploading_img") %}
+
+{% block contentPage %}
+	<div class="flex min-h-screen items-center justify-center bg-gray-100">
+		<div class="w-full max-w-md space-y-8 bg-white p-8 rounded-lg shadow-lg">
+			<h1 class="text-center text-2xl font-bold text-gray-800">Page de modification d'information d'utilisateur</h1>
+
+			<div class="space-y-4">
+				<h3 class="text-xl font-semibold text-gray-700">Modifier les champs souhaités</h3>
+
+				{{ form_start(formulaire) }}
+				<div>
+					{{ form_label(formulaire.avatar, 'Avatar', {'label_attr': {'class': 'block text-gray-600'}}) }}
+					{{ form_widget(formulaire.avatar, {'attr': {'class': 'w-full border border-gray-300 p-2 rounded'}}) }}
+					<div class="text-red-500 text-sm">{{ form_errors(formulaire.avatar) }}</div>
+				</div>
+
+				<div>
+					{{ form_label(formulaire.pseudo, 'Pseudo', {'label_attr': {'class': 'block text-gray-600'}}) }}
+					{{ form_widget(formulaire.pseudo, {'attr': {'class': 'w-full border border-gray-300 p-2 rounded'}}) }}
+					<div class="text-red-500 text-sm">{{ form_errors(formulaire.pseudo) }}</div>
+				</div>
+
+				<div>
+					{{ form_label(formulaire.emploi, 'Emploi', {'label_attr': {'class': 'block text-gray-600'}}) }}
+					{{ form_widget(formulaire.emploi, {'attr': {'class': 'w-full border border-gray-300 p-2 rounded'}}) }}
+					<div class="text-red-500 text-sm">{{ form_errors(formulaire.emploi) }}</div>
+				</div>
+
+				<div>
+					{{ form_label(formulaire.description, 'Description', {'label_attr': {'class': 'block text-gray-600'}}) }}
+					{{ form_widget(formulaire.description, {'attr': {'class': 'w-full border border-gray-300 p-2 rounded'}}) }}
+					<div class="text-red-500 text-sm">{{ form_errors(formulaire.description) }}</div>
+				</div>
+
+				<div>
+					{{ form_widget(formulaire.submit, {'attr': {'class': 'w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600'}}) }}
+				</div>
+				{{ form_end(formulaire) }}
+
+				{% if dataImg.code is defined %}
+					{% if dataImg.status == 'error' %}
+						<p class="text-red-500 text-center text-sm mt-2">
+							Une erreur s'est produite lors du rajout d'image.
+						</p>
+					{% endif %}
+
+				{% endif %}
+			</div>
+		</div>
+	</div>
+{% endblock %}
