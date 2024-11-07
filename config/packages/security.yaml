@@ -24,8 +24,13 @@ security:
         username_parameter: email
         password_parameter: password
 
+        # L'url de redirection aprés une authentification réussie
+        default_target_path: /profile
+
       logout:
         path: app_deconnexion
+
+      
 
       # activate different ways to authenticate
       # https://symfony.com/doc/current/security.html#the-firewall
