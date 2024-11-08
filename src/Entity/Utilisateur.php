@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
+use App\Entity\Collection;
+use Doctrine\Common\Collections\Collection as DoctrineCollection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -49,7 +52,32 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?string $siteUrl = null;
 
-  
+    #[ORM\OneToMany(
+        targetEntity: Collection::class,
+        mappedBy: "utilisateur",
+        cascade: ["persist", "remove"]
+
+    )]
+    private DoctrineCollection $collections;
+
+    public function __construct()
+    {
+        $this->collections = new ArrayCollection();
+    }
+
+
+    function getCollections(): DoctrineCollection
+    {
+        return $this->collections;
+    }
+
+    function addCollection(Collection $collection)
+    {
+        $collection->setUtilisateur($this);
+        $this->collections->add($collection);
+        return $this->collections;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -127,7 +155,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Get the value of pseudo
-     */ 
+     */
     public function getPseudo()
     {
         return $this->pseudo;
@@ -137,7 +165,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      * Set the value of pseudo
      *
      * @return  self
-     */ 
+     */
     public function setPseudo($pseudo)
     {
         $this->pseudo = $pseudo;
@@ -147,7 +175,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Get the value of description
-     */ 
+     */
     public function getDescription()
     {
         return $this->description;
@@ -157,7 +185,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      * Set the value of description
      *
      * @return  self
-     */ 
+     */
     public function setDescription($description)
     {
         $this->description = $description;
@@ -167,7 +195,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Get the value of avatar
-     */ 
+     */
     public function getAvatar()
     {
         return $this->avatar;
@@ -177,7 +205,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      * Set the value of avatar
      *
      * @return  self
-     */ 
+     */
     public function setAvatar($avatar)
     {
         $this->avatar = $avatar;
@@ -187,7 +215,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Get the value of emploi
-     */ 
+     */
     public function getEmploi()
     {
         return $this->emploi;
@@ -197,7 +225,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      * Set the value of emploi
      *
      * @return  self
-     */ 
+     */
     public function setEmploi($emploi)
     {
         $this->emploi = $emploi;
@@ -207,7 +235,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Get the value of telephone
-     */ 
+     */
     public function getTelephone()
     {
         return $this->telephone;
@@ -217,7 +245,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      * Set the value of telephone
      *
      * @return  self
-     */ 
+     */
     public function setTelephone($telephone)
     {
         $this->telephone = $telephone;
@@ -227,7 +255,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Get the value of siteUrl
-     */ 
+     */
     public function getSiteUrl()
     {
         return $this->siteUrl;
@@ -237,7 +265,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      * Set the value of siteUrl
      *
      * @return  self
-     */ 
+     */
     public function setSiteUrl($siteUrl)
     {
         $this->siteUrl = $siteUrl;
