@@ -1,0 +1,67 @@
+{% extends "pages/layout.html.twig" %}
+
+{% block contentPage %}
+
+
+	<div class="flex min-h-screen items-center justify-center bg-gray-100 py-10">
+		<div class="w-full max-w-lg space-y-8 bg-white p-10 rounded-xl shadow-2xl">
+			<h1 class="text-center text-3xl font-extrabold text-blue-600">Modifier une Collection</h1>
+
+			<div class="space-y-6 mt-6">
+				<h3 class="text-xl font-semibold text-gray-700">Détails de la Collection</h3>
+
+				{{ form_start(formulaire) }}
+				<div class="space-y-4">
+					<div>
+						{{ form_label(formulaire.titre, null, {'label_attr': {'class': 'block text-gray-700 font-medium mb-1'}}) }}
+						{{ form_widget(formulaire.titre, {'attr': {'class': 'w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400'}}) }}
+						<div class="text-red-500 text-sm">{{ form_errors(formulaire.titre) }}</div>
+					</div>
+
+					<div>
+						{{ form_label(formulaire.description, null, {'label_attr': {'class': 'block text-gray-700 font-medium mb-1'}}) }}
+						{{ form_widget(formulaire.description, {'attr': {'class': 'w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400'}}) }}
+						<div class="text-red-500 text-sm">{{ form_errors(formulaire.description) }}</div>
+					</div>
+
+					<div>
+						{{ form_label(formulaire.tags, null, {'label_attr': {'class': 'block text-gray-700 font-medium mb-1'}}) }}
+						{{ form_widget(formulaire.tags, {'attr': {'class': 'w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400'}}) }}
+						<div class="text-red-500 text-sm">{{ form_errors(formulaire.tags) }}</div>
+					</div>
+
+					<div>
+						{{ form_label(formulaire.categorie, null, {'label_attr': {'class': 'block text-gray-700 font-medium mb-1'}}) }}
+						{{ form_widget(formulaire.categorie, {'attr': {'class': 'w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400'}}) }}
+						<div class="text-red-500 text-sm">{{ form_errors(formulaire.categorie) }}</div>
+					</div>
+
+					<div>
+						{{ form_label(formulaire.cover, null, {'label_attr': {'class': 'block text-gray-700 font-medium mb-1'}}) }}
+						{{ form_widget(formulaire.cover, {'attr': {'class': 'w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400'}}) }}
+						<div class="text-red-500 text-sm">{{ form_errors(formulaire.cover) }}</div>
+					</div>
+
+					<div class="flex items-center space-x-2">
+						{{ form_widget(formulaire.isPublic, {'attr': {'class': 'form-checkbox h-5 w-5 text-blue-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:ring-blue-400'}}) }}
+						{{ form_label(formulaire.isPublic, null, {'label_attr': {'class': 'text-gray-700 font-medium'}}) }}
+						<div class="text-red-500 text-sm">{{ form_errors(formulaire.isPublic) }}</div>
+					</div>
+
+					<div>
+						{{ form_widget(formulaire.submit, {'attr': {'class': 'w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-shadow duration-150 ease-in-out shadow-lg hover:shadow-xl'}}) }}
+					</div>
+				</div>
+				{{ form_end(formulaire) }}
+
+				{% if dataImg.code is defined %}
+					{% if dataImg.status == 'error' %}
+						<p class="text-red-500 text-center text-sm mt-4">
+							Une erreur s'est produite lors de l'ajout de l'image.
+						</p>
+					{% endif %}
+				{% endif %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

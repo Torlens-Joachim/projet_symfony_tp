@@ -9,7 +9,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Length;
 
@@ -32,10 +31,10 @@ class UserFormType extends AbstractType
                 'maxMessage' => 'Le champs emploi doit contenir au maximum 50 caractères.'
             ])]])
             ->add('description', TextareaType::class, ["attr" => ["placeholder" => "Ajouter une nouvelle description ici"], "constraints" => [new Length([
-                'max' => 500,
+                'max' => 50,
                 'maxMessage' => 'Le champs description doit contenir au maximum 500 caractères.'
             ])]])
-            ->add("submit", SubmitType::class, ["attr" => ['class' => "button"]]);;
+            ->add("submit", SubmitType::class, ["attr" => ['class' => "button"]]);
 
         $builder->get('avatar')->setRequired(false);
         $builder->get('emploi')->setRequired(false);

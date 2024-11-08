@@ -1,24 +1,50 @@
 {% extends "pages/layout.html.twig" %}
 
+{% set data = app.request.query.all("add_collection_success") %}
+{% set dataEdit = app.request.query.all("edit_collection_success") %}
+
 {% block titlePage %}
 	<title>Page de profil</title>
 {% endblock %}
 
 {% block contentPage %}
+
+	{% if data.code is defined %}
+		{% if data.status == 'success' %}
+			<p class="text-green-500 text-lg">La collection a bien été enregistré ✅</p>
+		{% endif %}
+	{% endif %}
+
+	{% if dataEdit.code is defined %}
+		{% if dataEdit.status == 'success' %}
+			<p class="text-green-500 text-lg">La collection a bien été modifier ✅</p>
+		{% endif %}
+	{% endif %}
+
 	<section class="flex flex-col items-center mt-10 p-6 bg-gray-100 rounded-lg shadow-lg max-w-lg mx-auto">
 		<h1 class="text-2xl font-semibold text-gray-700 mb-6">Mon Profil</h1>
-		
+
 		<div class="mb-4">
 			<img class="h-24 w-24 rounded-full border-4 border-blue-500 shadow-lg" src="{{ asset(user.avatar ? "uploads/avatar/" ~ user.avatar : 'uploads/avatar/defaultProfileImage.png') }}" alt="Photo de profile">
 		</div>
-		
+
 		<div class="space-y-4">
-			<p class="text-lg font-medium text-gray-700">Pseudo: <span class="font-semibold">{{ user.pseudo }}</span></p>
-			<p class="text-lg text-gray-600">Description: <span class="font-normal">{{ user.description ? user.description : "" }}</span></p>
-			<p class="text-lg text-gray-600">Email: <span class="font-normal">{{ user.email}}</span></p>
-			<p class="text-lg text-gray-600">Emploi: <span class="font-normal">{{ user.emploi ? user.emploi : "Non spécifié" }}</span></p>
-			<p class="text-lg text-gray-600">Téléphone: <span class="font-normal">{{ user.telephone ? user.telephone : "Non spécifié" }}</span></p>
-			<p class="text-lg text-gray-600">Site Web: 
+			<p class="text-lg font-medium text-gray-700">Pseudo:
+				<span class="font-semibold">{{ user.pseudo }}</span>
+			</p>
+			<p class="text-lg text-gray-600">Description:
+				<span class="font-normal">{{ user.description ? user.description : "" }}</span>
+			</p>
+			<p class="text-lg text-gray-600">Email:
+				<span class="font-normal">{{ user.email}}</span>
+			</p>
+			<p class="text-lg text-gray-600">Emploi:
+				<span class="font-normal">{{ user.emploi ? user.emploi : "Non spécifié" }}</span>
+			</p>
+			<p class="text-lg text-gray-600">Téléphone:
+				<span class="font-normal">{{ user.telephone ? user.telephone : "Non spécifié" }}</span>
+			</p>
+			<p class="text-lg text-gray-600">Site Web:
 				<span class="font-normal">
 					{% if user.siteUrl %}
 						<a href="{{ user.siteUrl }}" class="text-blue-500 underline hover:text-blue-700" target="_blank">{{ user.siteUrl }}</a>
@@ -29,6 +55,51 @@
 			</p>
 		</div>
 
-        <a class="mt-10 text-yellow-500 underline" href={{path("app_modifier_informations")}}>Modifier mes informations</a>
+		<a class="mt-10 text-yellow-500 underline" href={{path("app_modifier_informations")}}>Modifier mes informations</a>
 	</section>
+
+	<section class="mt-12 p-8 bg-gray-100 rounded-lg shadow-lg max-w-6xl mx-auto">
+		<h2 class="text-3xl font-semibold text-gray-700 mb-8">Mes Collections</h2>
+
+		<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+			{% for collection in user.collections %}
+				<div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition duration-200 ease-in-out">
+					{% if collection.cover %}
+						<img class="w-full h-48 object-cover rounded-t-lg mb-4" src="{{ asset('uploads/collection/' ~ collection.cover) }}" alt="{{ collection.titre }}">
+					{% else %}
+						<div class="w-full h-48 flex items-center justify-center bg-gray-200 rounded-t-lg mb-4">
+							<img class="w-full h-48 object-cover rounded-t-lg mb-4" src="{{ asset('uploads/collection/no-photo.jpg') }}" alt="Image de la collection">
+						</div>
+					{% endif %}
+
+					<h3 class="text-xl font-semibold text-gray-800 mb-2">{{ collection.titre }}</h3>
+					<p class="text-gray-600 text-base mb-4">{{ collection.description | slice(0, 120) ~ (collection.description|length > 120 ? '...' : '') }}</p>
+
+					<div class="flex items-center justify-between mt-4">
+						<span class="text-gray-500 text-sm">Ajouté le
+							{{ collection.date|date('d/m/Y') }}</span>
+						{% if collection.isPublic %}
+							<span class="text-green-500 font-medium text-sm">Public</span>
+						{% else %}
+							<span class="text-red-500 font-medium text-sm">Privé</span>
+						{% endif %}
+					</div>
+					<div class="flex justify-between">
+						<a href="{{ path('app_modifier_collection', { 'id': collection.id }) }}">
+							<button class="text-yellow-400 mt-4">Modifier</button>
+						</a>
+
+						<a href="">
+							<button class="text-red-400 mt-4">Supprimer</button>
+						</a>
+					</div>
+				</div>
+			{% else %}
+				<p class="text-gray-600">Aucune collection disponible.</p>
+			{% endfor %}
+
+		</div>
+	</section>
+
+
 {% endblock %}
